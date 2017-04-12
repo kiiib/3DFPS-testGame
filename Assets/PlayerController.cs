@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKey(KeyCode.W)) {
             result += MoveSpeed;
         }
+        if (Input.GetKey(KeyCode.S)) {
+            result -= MoveSpeed;
+        }
 
         currentSpeed = result;
         this.transform.position += Time.deltaTime * currentSpeed * this.transform.forward;

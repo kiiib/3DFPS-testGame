@@ -6,10 +6,14 @@ public class PlayerController : MonoBehaviour {
 
     private Animator animatorController;
 
+    public Transform rotateYTransform;
+    public Transform rotateXTransform;
+    public float rotateSpeed;
+    public float currentRotateX = 0;
+
 	// Use this for initialization
 	void Start () {
         animatorController = this.GetComponent<Animator>();
-
     }
 
     public float MoveSpeed;
@@ -25,6 +29,10 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKey(KeyCode.S)) {
             result -= MoveSpeed;
         }
+
+        rotateYTransform.transform.localEulerAngles += new Vector3(0, Input.GetAxis("Horizontal"), 0) * rotateSpeed;
+        currentRotateX += Input.GetAxis("Vertical") * rotateSpeed;
+
 
         currentSpeed = result;
         this.transform.position += Time.deltaTime * currentSpeed * this.transform.forward;

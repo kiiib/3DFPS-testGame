@@ -30,12 +30,21 @@ public class PlayerController : MonoBehaviour {
             result -= MoveSpeed;
         }
 
+        Debug.Log(Input.GetAxisRaw("Vertical"));
         rotateYTransform.transform.localEulerAngles += new Vector3(0, Input.GetAxis("Horizontal"), 0) * rotateSpeed;
         currentRotateX += Input.GetAxis("Vertical") * rotateSpeed;
+        
 
+        if(currentRotateX > 90) {
+            currentRotateX = 90;
+        } else if(currentRotateX < -90) {
+            currentRotateX = -90;
+        }
 
+        rotateXTransform.transform.localEulerAngles = new Vector3(-currentRotateX, 0, 0);
         currentSpeed = result;
-        this.transform.position += Time.deltaTime * currentSpeed * this.transform.forward;
+
+        rotateYTransform.transform.position += Time.deltaTime * currentSpeed * rotateYTransform.transform.forward;
 
         animatorController.SetFloat("Speed", currentSpeed);
 	}
